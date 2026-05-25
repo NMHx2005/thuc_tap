@@ -1,0 +1,1376 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); }
+
+/* ══════════════════════════════════
+   HEADER BANNER
+══════════════════════════════════ */
+.target-banner {
+  background: linear-gradient(135deg, #3730a3 0%, #6d28d9 60%, #7c3aed 100%);
+  border-radius: 14px;
+  padding: 18px 22px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  box-shadow: 0 4px 20px rgba(109,40,217,0.25);
+}
+.target-banner-left { display: flex; flex-direction: column; gap: 5px; }
+.target-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+.target-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.75);
+  font-weight: 400;
+}
+.target-badge {
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(255,255,255,0.35);
+  border-radius: 999px;
+  padding: 7px 18px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #fff;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+
+/* ══════════════════════════════════
+   TABS
+══════════════════════════════════ */
+.tabs-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--color-background-primary);
+  padding: 4px 0 14px;
+}
+.tabs { display: flex; flex-wrap: wrap; gap: 7px; }
+.tab {
+  padding: 7px 16px;
+  border-radius: 10px;
+  border: 1.5px solid var(--color-border-secondary);
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  background: var(--color-background-primary);
+  color: var(--color-text-secondary);
+  transition: all 0.18s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  user-select: none;
+}
+.tab:hover {
+  border-color: #818cf8;
+  color: #4338ca;
+  background: #eef2ff;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(99,102,241,0.15);
+}
+.tab.active {
+  background: #4338ca;
+  color: #fff;
+  border-color: #4338ca;
+  box-shadow: 0 3px 10px rgba(67,56,202,0.35);
+  transform: translateY(-1px);
+}
+.tab-count {
+  background: rgba(0,0,0,0.12);
+  border-radius: 999px;
+  padding: 1px 7px;
+  font-size: 11.5px;
+  font-weight: 700;
+  line-height: 1.6;
+}
+.tab.active .tab-count { background: rgba(255,255,255,0.22); }
+
+/* ══════════════════════════════════
+   SECTION LABEL
+══════════════════════════════════ */
+.section { display: none; }
+.section.active { display: block; }
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  padding: 5px 0;
+  border-bottom: 2px solid var(--color-border-tertiary);
+  width: 100%;
+}
+
+/* ══════════════════════════════════
+   QUESTION CARDS
+══════════════════════════════════ */
+.q-card {
+  background: var(--color-background-primary);
+  border: 1.5px solid var(--color-border-tertiary);
+  border-radius: 12px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition: box-shadow 0.2s, border-color 0.2s, transform 0.15s;
+}
+.q-card:hover {
+  box-shadow: 0 4px 18px rgba(67,56,202,0.1);
+  border-color: #c7d2fe;
+  transform: translateY(-1px);
+}
+
+.q-header {
+  padding: 15px 17px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  user-select: none;
+}
+.q-header:hover .q-title { color: #4338ca; }
+
+.q-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  line-height: 1.55;
+  transition: color 0.15s;
+  flex: 1;
+}
+
+.q-meta {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.q-badge {
+  font-size: 11px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  white-space: nowrap;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+.badge-hard { background: #fff0f0; color: #c0392b; border: 1px solid #fecaca; }
+.badge-med  { background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
+.badge-easy { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+.badge-must { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+
+.chevron {
+  font-size: 18px;
+  color: var(--color-text-tertiary);
+  transition: transform 0.25s cubic-bezier(0.4,0,0.2,1), color 0.15s;
+  flex-shrink: 0;
+  margin-top: 0;
+  align-self: center;
+}
+.chevron.open { transform: rotate(180deg); color: #6366f1; }
+
+/* ══════════════════════════════════
+   ANSWER BODY
+══════════════════════════════════ */
+.q-body {
+  display: none;
+  padding: 0 18px 18px;
+  border-top: 1.5px solid var(--color-border-tertiary);
+  animation: fadeSlideIn 0.2s ease;
+}
+.q-body.open { display: block; }
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.q-body p {
+  font-size: 14.5px;
+  color: var(--color-text-secondary);
+  line-height: 1.82;
+  margin-top: 13px;
+}
+.q-body strong { color: var(--color-text-primary); font-weight: 700; }
+.q-body em {
+  color: var(--color-text-primary);
+  font-style: italic;
+  background: #fefce8;
+  padding: 1px 3px;
+  border-radius: 3px;
+}
+
+.q-body code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  background: #f1f5f9;
+  padding: 2px 7px;
+  border-radius: 5px;
+  color: #0f172a;
+  border: 1px solid #e2e8f0;
+  font-weight: 500;
+}
+
+.q-body ul {
+  margin: 10px 0 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.q-body ul li {
+  font-size: 14.5px;
+  color: var(--color-text-secondary);
+  line-height: 1.75;
+  padding-left: 20px;
+  position: relative;
+}
+.q-body ul li::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 10px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #818cf8;
+  flex-shrink: 0;
+}
+.q-body ul li code { font-size: 13px; }
+
+/* ══════════════════════════════════
+   TIP BOX
+══════════════════════════════════ */
+.tip-box {
+  margin-top: 14px;
+  background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+  border: 1px solid #ddd6fe;
+  border-left: 4px solid #7c3aed;
+  border-radius: 0 10px 10px 0;
+  padding: 11px 14px;
+  font-size: 13.5px;
+  color: #4c1d95;
+  line-height: 1.72;
+}
+.tip-box::before {
+  content: '💡 ';
+  font-style: normal;
+}
+.tip-box strong { color: #3730a3; font-weight: 700; }
+
+/* ══════════════════════════════════
+   CODE BLOCK
+══════════════════════════════════ */
+.code-block {
+  margin-top: 13px;
+  background: #0f172a;
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: #e2e8f0;
+  line-height: 1.7;
+  overflow-x: auto;
+  white-space: pre;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+/* ══════════════════════════════════
+   WRAP
+══════════════════════════════════ */
+.wrap { padding: 1rem 0 2.5rem; }
+
+/* ══════════════════════════════════
+   RESPONSIVE ≤ 600px
+══════════════════════════════════ */
+@media (max-width: 600px) {
+  .target-banner  { padding: 15px 16px; border-radius: 12px; }
+  .target-title   { font-size: 15px; }
+  .target-sub     { font-size: 12px; }
+  .target-badge   { font-size: 12.5px; padding: 6px 13px; }
+
+  .tabs           { gap: 5px; }
+  .tab            { padding: 6px 12px; font-size: 12.5px; border-radius: 8px; }
+  .tab-count      { font-size: 11px; }
+
+  .q-header       { padding: 13px 14px; gap: 8px; }
+  .q-title        { font-size: 14.5px; }
+  .q-badge        { font-size: 10.5px; padding: 2px 8px; }
+  .q-meta         { gap: 4px; }
+
+  .q-body         { padding: 0 14px 15px; }
+  .q-body p,
+  .q-body ul li   { font-size: 14px; }
+  .q-body code,
+  .q-body ul li code { font-size: 12.5px; }
+
+  .tip-box        { font-size: 13px; }
+  .code-block     { font-size: 12px; padding: 12px 13px; }
+}
+
+/* ══════════════════════════════════
+   RESPONSIVE ≤ 400px
+══════════════════════════════════ */
+@media (max-width: 400px) {
+  .target-badge   { display: none; }
+  .badge-easy, .badge-med, .badge-hard { display: none; }
+  .tab            { padding: 6px 10px; font-size: 12px; }
+}
+</style>
+
+<div class="wrap">
+
+<!-- Header -->
+<div class="target-banner">
+  <div class="target-banner-left">
+    <div class="target-title">Bộ câu hỏi phỏng vấn Frontend / ReactJS Intern</div>
+    <div class="target-sub">Netviet · Lộ trình 3 tháng intern → Fresher · Đầy đủ kỹ thuật + bản thân</div>
+  </div>
+  <div class="target-badge">🎯 Mục tiêu 7,000,000đ</div>
+</div>
+
+<!-- Tabs -->
+<div class="tabs-wrapper">
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('personal', this)">👤 Bản thân <span class="tab-count">10</span></div>
+  <div class="tab" onclick="switchTab('js', this)">JS / HTML / CSS <span class="tab-count">13</span></div>
+  <div class="tab" onclick="switchTab('react', this)">React <span class="tab-count">13</span></div>
+  <div class="tab" onclick="switchTab('api', this)">API / DB <span class="tab-count">8</span></div>
+  <div class="tab" onclick="switchTab('git', this)">Git & DevOps <span class="tab-count">6</span></div>
+  <div class="tab" onclick="switchTab('soft', this)">Soft skills <span class="tab-count">8</span></div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     TAB: BẢN THÂN
+═══════════════════════════════════════════════ -->
+<div id="personal" class="section active">
+<div class="section-label">Câu hỏi về bản thân & động lực</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Hãy giới thiệu bản thân bạn.</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-easy">Dễ</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Cấu trúc: <strong>Tên → Học vấn → Kỹ năng nổi bật → Dự án thực tế → Lý do ứng tuyển</strong> — nói trong 90 giây, không quá 2 phút.</p>
+    <p>Ví dụ đạt mức 7M: <em>"Em tên là [Tên], sinh viên năm [X] ngành [ngành] tại [trường]. Em có khoảng [X] tháng học và thực hành ReactJS, đã tự xây dựng [tên project — e.g. ứng dụng quản lý công việc / trang thương mại điện tử mini] với React + [stack]. Em đọc tài liệu kỹ thuật tiếng Anh thường xuyên và đang tìm môi trường thực tế để va chạm với codebase thực, học cách làm việc nhóm đúng quy trình."</em></p>
+    <div class="tip-box"><strong>Tip 7M:</strong> Đề cập cụ thể 1 project thật + 1 điểm kỹ thuật bạn tự hào. Tránh nói chung "em thích lập trình". Mức 7M = người ta nghe xong biết bạn đã làm gì, không chỉ đang học gì.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Tại sao bạn muốn ứng tuyển vào Netviet?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-easy">Dễ</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Nhắm vào 3 điểm cụ thể của Netviet: (1) làm việc với đối tác nước ngoài → luyện tiếng Anh thực chiến, (2) lộ trình rõ ràng intern → fresher với tiêu chí cụ thể, (3) được mentor trực tiếp từ Leader thay vì tự mò.</p>
+    <p>Ví dụ: <em>"Em chọn Netviet vì thấy lộ trình 3 tháng rất rõ ràng — em biết mình cần đạt gì để lên fresher. Đặc biệt môi trường làm việc với khách hàng nước ngoài là điều em muốn từ sớm vì tiếng Anh kỹ thuật sẽ tốt hơn khi dùng thật thay vì chỉ đọc doc."</em></p>
+    <div class="tip-box"><strong>Tránh:</strong> "Em muốn tích lũy kinh nghiệm" (quá chung). <strong>Nên:</strong> Liên hệ cụ thể điều gì ở Netviet khiến bạn chọn nơi này thay vì nơi khác.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Điểm mạnh và điểm yếu của bạn là gì?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p><strong>Điểm mạnh</strong> (chọn 2, liên quan frontend): Ham đọc doc tiếng Anh / tài liệu gốc; Chú ý chi tiết UI pixel-perfect; Tư duy debug có hệ thống; Tự học nhanh.</p>
+    <p><strong>Điểm yếu</strong>: Nêu thật + đang khắc phục thế nào. Ví dụ hay: <em>"Em hay bị cuốn vào tối ưu code quá sớm trước khi feature chạy xong. Em đang luyện thói quen 'make it work → make it right → make it fast' và dùng todo comment để không bỏ sót phần refactor."</em></p>
+    <div class="tip-box"><strong>Tip 7M:</strong> Điểm yếu phải thật (HR sẽ thấy nếu bạa bịa) nhưng không làm lung lay năng lực cốt lõi. Điểm mạnh phải kèm bằng chứng cụ thể.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Bạn có dự án cá nhân / portfolio nào không?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Chuẩn bị mô tả theo cấu trúc: <strong>Bài toán → Tech stack → Tính năng nổi bật → Khó khăn gặp → Cách giải quyết</strong>.</p>
+    <p>Ví dụ: <em>"Em có project [tên], là app [mô tả ngắn]. Stack: React + Vite + [CSS framework] + [backend/API]. Phần khó nhất là [ví dụ: quản lý auth state xuyên route]. Em giải quyết bằng Context API + useReducer. Hiện deploy trên [Vercel/GitHub Pages]."</em></p>
+    <div class="tip-box"><strong>Tip 7M:</strong> Có link GitHub hoặc live demo là rất lớn. Nếu chưa có project lớn: ít nhất 2 project clone với README mô tả rõ. Mức 7M = bạn giải thích được quyết định kỹ thuật của mình.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Mục tiêu nghề nghiệp 1–3 năm tới của bạn?</span>
+    <div class="q-meta"><span class="q-badge badge-easy">Dễ</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p><em>"3–6 tháng đầu: hoàn thiện React, học cách làm việc theo quy trình team thực tế (Git flow, code review). Sau 1 năm: tự đảm nhận feature độc lập từ đầu đến cuối. Dài hạn: hướng đến Fullstack hoặc chuyên sâu Frontend performance — tùy hướng công ty đang cần."</em></p>
+    <div class="tip-box">Align mục tiêu với lộ trình công ty đã nêu (intern 3 tháng → fresher). Cho thấy bạn ở lại lâu dài, không chỉ cần giấy xác nhận thực tập.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Bạn tự đánh giá React/JavaScript của mình ở mức nào?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Trả lời thành thật và cụ thể — tránh nói "em còn yếu lắm" (thiếu tự tin) hoặc "em khá giỏi" (dễ bị test ngay).</p>
+    <p>Ví dụ: <em>"React: em nắm chắc hooks cơ bản (useState, useEffect, useRef), biết Context API, React Router, gọi API với axios. Chưa làm nhiều với Redux nhưng đã đọc doc và hiểu concept. JavaScript: nắm ES6+, Promise/async-await, closure, prototype tốt."</em></p>
+    <div class="tip-box"><strong>Tip 7M:</strong> Liệt kê cụ thể những gì biết + 1–2 điểm chưa chắc + đang học gì tiếp theo. Câu này test honesty và self-awareness — hai trait rất quan trọng với intern mức lương cao.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Mức lương kỳ vọng của bạn là bao nhiêu?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-hard">Quan trọng</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Netviet công khai range: intern 2–4M, fresher 7–11M tùy năng lực + tiếng Anh. Bạn muốn 7M = <strong>mức sàn fresher</strong>, tức là bạn phải chứng minh bạn xứng đáng lên fresher ngay sau 3 tháng.</p>
+    <p>Cách nói: <em>"Em kỳ vọng mức intern theo năng lực của công ty. Mục tiêu của em là trong 3 tháng đạt đủ tiêu chí để được xét lên fresher ở mức 7M. Em sẵn sàng để công ty đánh giá khách quan qua kết quả thực tế."</em></p>
+    <div class="tip-box"><strong>Tip 7M:</strong> Không nêu thẳng số 7M trong buổi phỏng vấn đầu — hãy nói mục tiêu fresher và để công ty đánh giá. Điều quan trọng là bạn thể hiện năng lực xứng đáng 7M chứ không phải đòi 7M.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Bạn tự học React như thế nào? Nguồn tài liệu?</span>
+    <div class="q-meta"><span class="q-badge badge-easy">Dễ</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Đề cập: <strong>react.dev</strong> (docs chính thức mới nhất), MDN, YouTube (Traversy Media, Fireship, Jack Herrington), Udemy, đọc source code GitHub của project thật.</p>
+    <div class="tip-box">Cho thấy bạn đọc được tiếng Anh kỹ thuật. Thêm: "Khi gặp bug em hay search GitHub Issues trước, rồi StackOverflow, rồi mới hỏi." — thể hiện quy trình debug độc lập.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Kể về lần bạn gặp bug/vấn đề khó khi lập trình và cách giải quyết?</span>
+    <div class="q-meta"><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Dùng cấu trúc <strong>STAR</strong>: Situation (bối cảnh) → Task (vấn đề cụ thể) → Action (từng bước giải quyết) → Result (kết quả).</p>
+    <p>Ví dụ: <em>"Khi làm project [X], em bị bug infinite loop với useEffect. Em dùng React DevTools xem re-render, phát hiện dependency array bị thiếu nên effect chạy lại mỗi render. Em thêm đúng dep và dùng useCallback cho function trong dep để fix."</em></p>
+    <div class="tip-box"><strong>Tip 7M:</strong> Câu này test kỹ năng debug có hệ thống. Đừng nói "em Google rồi tìm được" — nêu rõ quy trình phân tích của bạn.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Tại sao bạn chọn Frontend thay vì Backend hoặc Fullstack?</span>
+    <div class="q-meta"><span class="q-badge badge-easy">Dễ</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Đừng nói "vì Frontend dễ hơn". Thay vào đó: <em>"Em thích cái feedback ngay lập tức khi code — thấy giao diện thay đổi real-time rất thỏa mãn. Em cũng quan tâm đến UX — cách người dùng tương tác với app. Tuy nhiên em hiểu Frontend mạnh thì cần biết Backend cơ bản, nên em cũng đang học Node.js / REST API design song song."</em></p>
+  </div>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     TAB: JS / HTML / CSS
+═══════════════════════════════════════════════ -->
+<div id="js" class="section">
+<div class="section-label">JavaScript, HTML & CSS</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Sự khác biệt giữa <code>var</code>, <code>let</code>, <code>const</code>?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-easy">Dễ</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <ul>
+      <li><code>var</code>: function scope, hoisting (khai báo lên đầu hàm nhưng giá trị là <code>undefined</code>), có thể khai báo lại.</li>
+      <li><code>let</code>: block scope, Temporal Dead Zone (không dùng trước khai báo), không khai báo lại trong cùng scope.</li>
+      <li><code>const</code>: block scope, phải gán khi khai báo, không thể reassign — nhưng object/array vẫn mutable (nội dung thay được).</li>
+    </ul>
+    <p>Quy tắc thực tế: mặc định dùng <code>const</code>, chỉ dùng <code>let</code> khi cần reassign, không dùng <code>var</code>.</p>
+    <div class="tip-box">Câu hỏi thêm hay gặp: "Temporal Dead Zone là gì?" → Là khoảng từ đầu block đến dòng khai báo <code>let</code>/<code>const</code>, truy cập biến trong vùng này ném ReferenceError.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title"><code>this</code> trong JavaScript là gì? bind / call / apply?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-hard">Khó</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p><code>this</code> trỏ đến object đang gọi hàm — giá trị phụ thuộc vào <strong>cách gọi</strong>, không phải nơi định nghĩa (trừ arrow function).</p>
+    <ul>
+      <li>Method call: <code>obj.fn()</code> → <code>this</code> = obj</li>
+      <li>Regular function call: <code>fn()</code> → <code>this</code> = undefined (strict) / global</li>
+      <li>Arrow function: không có <code>this</code> riêng, kế thừa từ scope bên ngoài</li>
+      <li><code>call(ctx, a, b)</code>: gọi hàm ngay với <code>this</code> = ctx</li>
+      <li><code>apply(ctx, [a, b])</code>: như call nhưng args là array</li>
+      <li><code>bind(ctx)</code>: trả về hàm mới với <code>this</code> đã được fix cứng</li>
+    </ul>
+    <div class="code-block">const obj = { name: 'A', greet() { console.log(this.name); } };
+const fn = obj.greet;
+fn();         // undefined (lost context)
+fn.call(obj); // 'A'</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Event loop trong JavaScript hoạt động thế nào?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-hard">Khó</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>JS là single-threaded. Cơ chế bất đồng bộ dựa trên Event Loop:</p>
+    <ul>
+      <li><strong>Call Stack</strong>: thực thi code đồng bộ.</li>
+      <li><strong>Microtask Queue</strong>: Promise.then, queueMicrotask, MutationObserver — ưu tiên cao, chạy ngay khi stack trống.</li>
+      <li><strong>Macrotask Queue</strong>: setTimeout, setInterval, I/O — chạy sau khi microtask queue rỗng.</li>
+    </ul>
+    <p>Thứ tự: <strong>Sync → Microtasks (Promise) → Macrotasks (setTimeout)</strong>.</p>
+    <div class="code-block">console.log('1');
+setTimeout(() => console.log('2'), 0);
+Promise.resolve().then(() => console.log('3'));
+console.log('4');
+// Output: 1 → 4 → 3 → 2</div>
+    <div class="tip-box">Câu hỏi phổ biến nhất khi test JS nâng cao — nắm được output của đoạn code trên là ghi điểm lớn.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Promise và async/await là gì? Khác nhau thế nào?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Promise: đối tượng đại diện giá trị sẽ có trong tương lai. 3 trạng thái: <code>pending</code> → <code>fulfilled</code> / <code>rejected</code>. Xử lý chuỗi bằng <code>.then().catch().finally()</code>.</p>
+    <p>async/await: syntactic sugar trên Promise, code trông như đồng bộ, dùng <code>try/catch</code> để bắt lỗi.</p>
+    <div class="code-block">// Promise chain
+fetch('/api/user').then(r => r.json()).then(data => ...).catch(err => ...);
+
+// async/await — dễ đọc hơn
+async function getUser() {
+  try {
+    const res = await fetch('/api/user');
+    const data = await res.json();
+    return data;
+  } catch (err) { console.error(err); }
+}</div>
+    <p>Biết thêm: <code>Promise.all()</code> — chạy song song nhiều promise, <code>Promise.allSettled()</code> — không throw khi 1 cái fail.</p>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Closure là gì? Cho ví dụ thực tế.</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-hard">Khó</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Closure là hàm "nhớ" biến từ scope bên ngoài ngay cả sau khi scope đó đã kết thúc thực thi.</p>
+    <div class="code-block">function makeCounter() {
+  let count = 0;
+  return {
+    inc: () => ++count,
+    get: () => count,
+  };
+}
+const c = makeCounter();
+c.inc(); c.inc();
+console.log(c.get()); // 2</div>
+    <p>Ứng dụng thực tế: debounce/throttle, module pattern, memoization, event handler trong loop, factory functions.</p>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Prototype chain và kế thừa trong JavaScript?</span>
+    <div class="q-meta"><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Mọi object trong JS có <code>[[Prototype]]</code> trỏ đến object khác. Khi truy cập property không tồn tại trên object, JS leo lên chuỗi prototype cho đến <code>Object.prototype</code> rồi mới trả về <code>undefined</code>.</p>
+    <p>ES6 <code>class</code> là syntactic sugar của prototype-based inheritance. <code>extends</code> tạo chuỗi prototype, <code>super()</code> gọi constructor cha.</p>
+    <div class="code-block">class Animal {
+  constructor(name) { this.name = name; }
+  speak() { return `${this.name} makes a noise.`; }
+}
+class Dog extends Animal {
+  speak() { return `${this.name} barks.`; }
+}</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">ES6+ features quan trọng: destructuring, spread, optional chaining…</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-easy">Dễ</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <ul>
+      <li><strong>Destructuring</strong>: <code>const { name, age } = user</code> / <code>const [first, ...rest] = arr</code></li>
+      <li><strong>Spread / Rest</strong>: <code>{...obj, extra: true}</code> — copy + override; <code>...args</code> trong params</li>
+      <li><strong>Optional chaining</strong>: <code>user?.address?.city</code> — không throw nếu null/undefined</li>
+      <li><strong>Nullish coalescing</strong>: <code>value ?? 'default'</code> — chỉ fallback khi null/undefined (khác <code>||</code> vì 0 và "" không bị fallback)</li>
+      <li><strong>Template literals</strong>: <code>`Hello ${name}`</code></li>
+      <li><strong>Arrow function</strong>: syntax ngắn + không có <code>this</code> riêng</li>
+      <li><strong>Modules</strong>: <code>import</code> / <code>export</code> (ESM)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Debounce và Throttle là gì? Khi nào dùng?</span>
+    <div class="q-meta"><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p><strong>Debounce</strong>: đợi sau lần gọi cuối một khoảng thời gian mới thực thi. Dùng cho search input — chỉ gọi API sau khi user ngừng gõ 300ms.</p>
+    <p><strong>Throttle</strong>: đảm bảo hàm chỉ chạy tối đa 1 lần trong mỗi interval. Dùng cho scroll/resize event.</p>
+    <div class="code-block">// Debounce đơn giản
+function debounce(fn, delay) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), delay);
+  };
+}</div>
+    <div class="tip-box">Trong React: dùng <code>useMemo</code> hoặc thư viện <code>lodash.debounce</code>. Nhớ cleanup trong <code>useEffect</code>.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">TypeScript cơ bản: type, interface, generics?</span>
+    <div class="q-meta"><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>TypeScript = JavaScript + static typing. Giúp bắt lỗi lúc compile thay vì runtime.</p>
+    <ul>
+      <li><strong>type</strong>: alias cho type, có thể dùng union <code>type ID = string | number</code></li>
+      <li><strong>interface</strong>: mô tả hình dạng object, có thể extend, thường dùng cho props/API response</li>
+      <li><strong>Generics</strong>: viết code tái sử dụng với type linh hoạt: <code>function identity&lt;T&gt;(x: T): T</code></li>
+    </ul>
+    <div class="code-block">interface User { id: number; name: string; email?: string; }
+type ApiResponse&lt;T&gt; = { data: T; error: string | null };
+
+function getUser(id: number): Promise&lt;ApiResponse&lt;User&gt;&gt; { ... }</div>
+    <div class="tip-box">Không cần TypeScript expert nhưng biết cơ bản là lợi thế lớn cho mức 7M. Nếu project React hiện tại của bạn dùng <code>.tsx</code> thì ghi điểm cao.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">CSS Box Model và <code>box-sizing</code>?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-easy">Dễ</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Box Model: <strong>content → padding → border → margin</strong>. Mặc định (<code>content-box</code>): width chỉ tính content, padding và border cộng thêm ra ngoài. Với <code>box-sizing: border-box</code>: width bao gồm cả padding + border — dễ tính toán layout hơn nhiều.</p>
+    <p>Hầu hết project dùng: <code>* { box-sizing: border-box; }</code> ở reset CSS.</p>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Flexbox và Grid khác nhau thế nào? Dùng khi nào?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <ul>
+      <li><strong>Flexbox</strong>: 1 chiều (row hoặc column). Dùng cho navigation bar, button group, căn align items trong hàng/cột.</li>
+      <li><strong>Grid</strong>: 2 chiều (rows + columns). Dùng cho page layout, dashboard, card gallery.</li>
+    </ul>
+    <p>Thực tế: kết hợp cả hai — Grid cho macro layout trang, Flexbox cho micro-alignment bên trong component.</p>
+    <div class="tip-box">Biết thuộc tính quan trọng: Flex: <code>flex-direction, justify-content, align-items, flex-wrap, gap</code>. Grid: <code>grid-template-columns, grid-template-rows, gap, grid-column, place-items</code>.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Responsive design: media queries và các kỹ thuật?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-easy">Dễ</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Mobile-first: viết CSS cho mobile trước, dùng <code>min-width</code> để mở rộng lên màn lớn hơn.</p>
+    <div class="code-block">/* Mobile first */
+.container { flex-direction: column; }
+
+@media (min-width: 768px) {
+  .container { flex-direction: row; }
+}</div>
+    <ul>
+      <li>Dùng <code>rem</code> / <code>em</code> thay <code>px</code> cứng cho font size</li>
+      <li>Dùng <code>%</code>, <code>vw</code>, <code>vh</code>, <code>clamp()</code> cho kích thước linh hoạt</li>
+      <li>Tailwind CSS: breakpoint prefix <code>md:, lg:</code> là utility class</li>
+      <li>Breakpoints phổ biến: 640 (sm), 768 (md), 1024 (lg), 1280 (xl)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">JSON và XML là gì? Khi nào dùng cái nào?</span>
+    <div class="q-meta"><span class="q-badge badge-easy">Dễ</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>JSON: nhẹ, native trong JS (<code>JSON.parse/stringify</code>), phổ biến với REST API hiện đại. XML: verbose hơn, có namespace và schema validation, vẫn dùng trong SOAP, legacy systems, config (pom.xml, AndroidManifest.xml).</p>
+    <p>Web hiện đại: JSON là default. XML chủ yếu gặp khi làm việc với hệ thống cũ hoặc enterprise.</p>
+  </div>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     TAB: REACT
+═══════════════════════════════════════════════ -->
+<div id="react" class="section">
+<div class="section-label">ReactJS — Hooks, Patterns & Performance</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Virtual DOM là gì? React reconciliation hoạt động thế nào?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Virtual DOM là bản sao nhẹ (JS object) của DOM thật, lưu trong memory. Khi state/props thay đổi:</p>
+    <ul>
+      <li>React tạo VDOM mới</li>
+      <li>So sánh với VDOM cũ (diffing algorithm)</li>
+      <li>Chỉ cập nhật phần thực sự thay đổi vào DOM thật (reconciliation)</li>
+    </ul>
+    <p>React Fiber (React 16+): engine reconciliation mới, chia nhỏ công việc để không block main thread, hỗ trợ concurrent features.</p>
+    <div class="tip-box">Lý do cần <code>key</code> trong list: giúp React nhận dạng item nào thay đổi/thêm/xóa thay vì re-render toàn bộ list.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">useState và useEffect hoạt động thế nào?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-easy">Dễ</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p><code>useState(init)</code>: trả về <code>[state, setState]</code>. Gọi <code>setState</code> sẽ schedule re-render. State update là bất đồng bộ — không đọc state mới ngay sau setState trong cùng function. Dùng functional update <code>setState(prev => prev + 1)</code> khi phụ thuộc vào giá trị trước.</p>
+    <p><code>useEffect(fn, deps)</code>: chạy side-effect sau render.</p>
+    <ul>
+      <li><code>[]</code>: chạy 1 lần sau mount (giống componentDidMount)</li>
+      <li><code>[dep]</code>: chạy khi dep thay đổi</li>
+      <li>Không có deps: chạy sau mỗi render</li>
+      <li>Return cleanup: chạy trước effect tiếp theo hoặc khi unmount</li>
+    </ul>
+    <div class="code-block">useEffect(() => {
+  const controller = new AbortController();
+  fetch('/api/data', { signal: controller.signal })
+    .then(r => r.json()).then(setData);
+  return () => controller.abort(); // cleanup
+}, [id]);</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">useRef hoạt động thế nào? Khi nào dùng?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p><code>useRef()</code> trả về object <code>{ current: value }</code> tồn tại xuyên suốt lifecycle component. Thay đổi <code>.current</code> KHÔNG trigger re-render.</p>
+    <p>Dùng khi:</p>
+    <ul>
+      <li>Truy cập DOM element trực tiếp: <code>&lt;input ref={inputRef} /&gt;</code> → <code>inputRef.current.focus()</code></li>
+      <li>Lưu giá trị mutable không cần render lại: timer ID, previous value, flag</li>
+      <li>Tích hợp thư viện bên ngoài (D3, video player…)</li>
+    </ul>
+    <div class="code-block">function Timer() {
+  const timerRef = useRef(null);
+  const start = () => { timerRef.current = setInterval(..., 1000); };
+  const stop  = () => clearInterval(timerRef.current);
+}</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">useReducer vs useState — khi nào dùng cái nào?</span>
+    <div class="q-meta"><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p><code>useState</code>: đơn giản, state độc lập, ít logic.</p>
+    <p><code>useReducer(reducer, initialState)</code>: phù hợp khi:</p>
+    <ul>
+      <li>State phức tạp (nhiều sub-values liên quan nhau)</li>
+      <li>Next state phụ thuộc vào state trước theo nhiều action</li>
+      <li>Muốn tách logic ra <code>reducer</code> function để dễ test</li>
+    </ul>
+    <div class="code-block">function reducer(state, action) {
+  switch (action.type) {
+    case 'increment': return { count: state.count + 1 };
+    case 'reset':     return { count: 0 };
+    default:          return state;
+  }
+}
+const [state, dispatch] = useReducer(reducer, { count: 0 });</div>
+    <div class="tip-box">Kết hợp useReducer + Context API = lightweight Redux cho app vừa.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">useMemo và useCallback khác nhau thế nào?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-hard">Khó</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p><code>useMemo(() => compute(), deps)</code>: memoize <strong>giá trị</strong> — chỉ tính lại khi deps thay đổi. Dùng cho tính toán nặng (sort, filter danh sách lớn).</p>
+    <p><code>useCallback(fn, deps)</code>: memoize <strong>function reference</strong> — trả về cùng reference khi deps không đổi. Dùng khi truyền callback xuống component con có <code>React.memo</code>.</p>
+    <div class="tip-box"><strong>Cạm bẫy:</strong> Đừng dùng bừa bãi — memoization có cost (so sánh deps). Chỉ dùng khi đo được vấn đề performance thực sự. Rule of thumb: dùng khi tính toán tốn > 1ms hoặc khi callback truyền vào memoized child.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Custom Hook là gì? Viết một custom hook đơn giản.</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Custom hook = function bắt đầu bằng <code>use</code>, gọi các hook khác bên trong, dùng để tái sử dụng logic stateful.</p>
+    <div class="code-block">// useFetch — custom hook gọi API
+function useFetch(url) {
+  const [data, setData]     = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError]   = useState(null);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch(url)
+      .then(r => r.json())
+      .then(setData)
+      .catch(setError)
+      .finally(() => setLoading(false));
+  }, [url]);
+
+  return { data, loading, error };
+}
+
+// Sử dụng
+const { data, loading, error } = useFetch('/api/users');</div>
+    <div class="tip-box">Custom hooks hay gặp trong thực tế: useDebounce, useLocalStorage, useWindowSize, useIntersectionObserver, useForm. Biết giải thích và viết một cái là ghi điểm lớn ở mức 7M.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Props drilling là gì? Context API và State Management?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Props drilling: truyền props qua nhiều tầng component trung gian không dùng đến. Giải pháp:</p>
+    <ul>
+      <li><strong>Context API</strong>: tốt cho state không thay đổi thường xuyên (theme, auth, locale). Dùng <code>createContext + Provider + useContext</code>.</li>
+      <li><strong>Zustand</strong>: lightweight, ít boilerplate, phổ biến cho app vừa và nhỏ.</li>
+      <li><strong>Redux Toolkit</strong>: cho app lớn, cần strict data flow, nhiều developer.</li>
+      <li><strong>React Query / SWR</strong>: quản lý server state (cache, refetch, loading/error).</li>
+    </ul>
+    <div class="tip-box">Biết phân biệt <strong>client state</strong> (UI state, form) vs <strong>server state</strong> (data từ API) — cách quản lý khác nhau. React Query giải quyết server state cực tốt.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Controlled vs Uncontrolled component?</span>
+    <div class="q-meta"><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p><strong>Controlled</strong>: giá trị input quản lý bởi React state, cập nhật qua <code>onChange</code>. Toàn quyền kiểm soát — dễ validate, format real-time.</p>
+    <p><strong>Uncontrolled</strong>: DOM tự quản lý, đọc giá trị qua <code>ref</code>. Đơn giản hơn cho trường hợp chỉ cần giá trị lúc submit.</p>
+    <p>Thực tế: controlled cho form có validation phức tạp; uncontrolled cho file input (<code>&lt;input type="file"&gt;</code> luôn uncontrolled) hoặc tích hợp thư viện non-React.</p>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">React Router hoạt động thế nào?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-easy">Dễ</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Điều hướng client-side không reload trang. Cấu trúc cơ bản:</p>
+    <div class="code-block">&lt;BrowserRouter&gt;
+  &lt;Routes&gt;
+    &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+    &lt;Route path="/users/:id" element={&lt;UserDetail /&gt;} /&gt;
+    &lt;Route path="*" element={&lt;NotFound /&gt;} /&gt;
+  &lt;/Routes&gt;
+&lt;/BrowserRouter&gt;</div>
+    <p>Hooks quan trọng: <code>useNavigate()</code> — navigate bằng code, <code>useParams()</code> — lấy URL params, <code>useSearchParams()</code> — query string, <code>useLocation()</code> — info về route hiện tại.</p>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Làm sao tối ưu hiệu năng React app?</span>
+    <div class="q-meta"><span class="q-badge badge-hard">Khó</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <ul>
+      <li><strong>React.memo</strong>: bọc component con, tránh re-render khi props không đổi.</li>
+      <li><strong>useMemo / useCallback</strong>: memoize giá trị và function.</li>
+      <li><strong>Code splitting</strong>: <code>React.lazy + Suspense</code> — lazy load component khi cần.</li>
+      <li><strong>Virtualization</strong>: <code>react-window</code> / <code>react-virtual</code> cho danh sách hàng nghìn item.</li>
+      <li><strong>Tránh re-render không cần</strong>: đặt state gần nơi dùng, tách component nhỏ.</li>
+      <li><strong>Image optimization</strong>: lazy loading, WebP, correct sizing.</li>
+      <li><strong>Bundle size</strong>: tree shaking, dynamic import, phân tích với bundlephobia.</li>
+    </ul>
+    <div class="tip-box">Dùng React DevTools Profiler để đo trước khi tối ưu — đừng tối ưu "mù". Câu trả lời có đề cập đến profiling là rất ấn tượng.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">React patterns: HOC, Render Props, Composition?</span>
+    <div class="q-meta"><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p><strong>HOC (Higher-Order Component)</strong>: function nhận component, trả về component mới với logic bổ sung. Ví dụ: <code>withAuth(ProtectedPage)</code>.</p>
+    <p><strong>Render Props</strong>: truyền function vào prop để chia sẻ logic — ít dùng hơn kể từ khi có hooks.</p>
+    <p><strong>Composition (children pattern)</strong>: cách React-idiomatic nhất hiện nay.</p>
+    <div class="code-block">// Compound component pattern
+&lt;Select&gt;
+  &lt;Select.Option value="a"&gt;Option A&lt;/Select.Option&gt;
+  &lt;Select.Option value="b"&gt;Option B&lt;/Select.Option&gt;
+&lt;/Select&gt;</div>
+    <div class="tip-box">Với hooks, phần lớn use case của HOC và Render Props đã được thay bằng custom hooks. Biết pattern cũ vẫn cần vì nhiều thư viện cũ dùng HOC.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Vòng đời component React (lifecycle)?</span>
+    <div class="q-meta"><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Functional components dùng hooks mô phỏng lifecycle:</p>
+    <ul>
+      <li><strong>Mount</strong>: <code>useEffect(() => { /* mount */ return () => { /* unmount */ }; }, [])</code></li>
+      <li><strong>Update</strong>: <code>useEffect(() => { /* dep changed */ }, [dep])</code></li>
+      <li><strong>Unmount</strong>: cleanup function trong useEffect</li>
+    </ul>
+    <p>Class component (biết để đọc code cũ): <code>componentDidMount</code> → <code>componentDidUpdate</code> → <code>componentWillUnmount</code>.</p>
+    <div class="tip-box">Strict Mode (React 18): mount → unmount → mount lại — để phát hiện side effect không clean. Nếu gặp effect chạy 2 lần khi dev, đây là lý do.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Error Boundary là gì?</span>
+    <div class="q-meta"><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Error Boundary là class component bắt JS error trong cây component con, hiển thị fallback UI thay vì crash toàn app. Dùng <code>componentDidCatch</code> và <code>getDerivedStateFromError</code>.</p>
+    <p>Chưa có hook tương đương — phải dùng class component hoặc thư viện <code>react-error-boundary</code>.</p>
+    <div class="code-block">// Dùng thư viện react-error-boundary
+&lt;ErrorBoundary fallback={&lt;p&gt;Something went wrong&lt;/p&gt;}&gt;
+  &lt;MyComponent /&gt;
+&lt;/ErrorBoundary&gt;</div>
+  </div>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     TAB: API / DB
+═══════════════════════════════════════════════ -->
+<div id="api" class="section">
+<div class="section-label">REST API, Authentication & Database</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">REST API là gì? Các HTTP method và status code?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-easy">Dễ</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>REST: kiến trúc API stateless, giao tiếp qua HTTP với resource-based URL.</p>
+    <ul>
+      <li>GET: lấy dữ liệu (idempotent, không side effect)</li>
+      <li>POST: tạo mới resource</li>
+      <li>PUT: cập nhật toàn bộ resource (idempotent)</li>
+      <li>PATCH: cập nhật một phần</li>
+      <li>DELETE: xóa resource</li>
+    </ul>
+    <p>Status codes: <code>200 OK</code>, <code>201 Created</code>, <code>204 No Content</code>, <code>400 Bad Request</code>, <code>401 Unauthorized</code> (chưa auth), <code>403 Forbidden</code> (đã auth nhưng không có quyền), <code>404 Not Found</code>, <code>409 Conflict</code>, <code>422 Unprocessable Entity</code>, <code>500 Internal Server Error</code>.</p>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Gọi API trong React: fetch vs axios? Error handling?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-easy">Dễ</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p><code>fetch</code>: native browser API, cần <code>res.ok</code> check thủ công (không throw với 4xx/5xx), cần <code>res.json()</code> thêm bước.</p>
+    <p><code>axios</code>: tự parse JSON, throw với HTTP error status, support interceptor (tự thêm auth header, handle 401 global), timeout, cancel request.</p>
+    <div class="code-block">// axios interceptor — tự thêm token
+axios.interceptors.request.use(config => {
+  config.headers.Authorization = `Bearer ${getToken()}`;
+  return config;
+});
+// Global error handling
+axios.interceptors.response.use(null, error => {
+  if (error.response?.status === 401) logout();
+  return Promise.reject(error);
+});</div>
+    <div class="tip-box">React Query / SWR: quản lý server state tốt hơn — auto cache, background refetch, loading/error state, pagination. Đề cập được là điểm cộng lớn.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">JWT Authentication hoạt động thế nào?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>JWT (JSON Web Token): token gồm 3 phần <code>header.payload.signature</code>, encode bằng Base64. Server ký bằng secret key, client gửi lại mỗi request qua header.</p>
+    <ul>
+      <li>Login → server trả JWT (access token + refresh token)</li>
+      <li>Client lưu vào localStorage hoặc httpOnly cookie</li>
+      <li>Mỗi request: <code>Authorization: Bearer &lt;token&gt;</code></li>
+      <li>Server verify signature, decode payload lấy user info</li>
+      <li>Access token hết hạn → dùng refresh token lấy token mới</li>
+    </ul>
+    <div class="tip-box"><strong>Bảo mật:</strong> Lưu token trong httpOnly cookie an toàn hơn localStorage (tránh XSS). Biết điều này là điểm cộng với employer.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">CORS là gì? Xử lý thế nào?</span>
+    <div class="q-meta"><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>CORS (Cross-Origin Resource Sharing): browser chặn request từ origin khác (domain, port, protocol khác) để bảo mật (Same-Origin Policy).</p>
+    <p>Server cần trả header <code>Access-Control-Allow-Origin: *</code> (hoặc origin cụ thể). Preflight request (OPTIONS) được gửi trước với method phức tạp.</p>
+    <p>Khi dev: dùng proxy trong <code>vite.config.js</code>:</p>
+    <div class="code-block">server: {
+  proxy: {
+    '/api': { target: 'http://localhost:3001', changeOrigin: true }
+  }
+}</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">SQL cơ bản: JOIN, GROUP BY, subquery?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <ul>
+      <li><strong>INNER JOIN</strong>: rows khớp ở cả 2 bảng</li>
+      <li><strong>LEFT JOIN</strong>: tất cả rows bảng trái + khớp bên phải (NULL nếu không có)</li>
+      <li><strong>GROUP BY</strong>: gom nhóm để dùng aggregate (COUNT, SUM, AVG, MAX, MIN)</li>
+      <li><strong>HAVING</strong>: lọc sau GROUP BY (WHERE không dùng được với aggregate)</li>
+      <li><strong>ORDER BY</strong>: sắp xếp kết quả</li>
+      <li><strong>LIMIT / OFFSET</strong>: phân trang</li>
+    </ul>
+    <div class="code-block">-- Lấy users có tổng đơn hàng > 5
+SELECT u.name, COUNT(o.id) AS order_count
+FROM users u
+INNER JOIN orders o ON u.id = o.user_id
+GROUP BY u.id, u.name
+HAVING COUNT(o.id) > 5
+ORDER BY order_count DESC;</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">SQL vs NoSQL (MySQL/PostgreSQL vs MongoDB)?</span>
+    <div class="q-meta"><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <ul>
+      <li><strong>SQL (MySQL, PostgreSQL)</strong>: schema cố định, ACID transactions, quan hệ rõ ràng. Phù hợp: tài chính, ERP, app có quan hệ phức tạp. PostgreSQL mạnh hơn MySQL (JSON support, full-text search, extensions).</li>
+      <li><strong>MongoDB (NoSQL)</strong>: document-based, schema linh hoạt, scale horizontal tốt, query JSON native. Phù hợp: catalog, CMS, real-time data, dữ liệu cấu trúc biến đổi.</li>
+    </ul>
+    <div class="tip-box">Netviet yêu cầu MySQL/PostgreSQL chính, MongoDB là lợi thế. Ưu tiên ôn MySQL — biết CRUD, JOIN cơ bản là đủ cho intern.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Database indexing là gì? Khi nào cần dùng?</span>
+    <div class="q-meta"><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Index: cấu trúc dữ liệu (B-tree) giúp DB tìm kiếm nhanh hơn thay vì quét toàn bảng (full table scan).</p>
+    <ul>
+      <li>Nên index: cột thường dùng trong WHERE, JOIN, ORDER BY; foreign keys.</li>
+      <li>Không nên index mọi cột: index tốn storage và làm chậm INSERT/UPDATE/DELETE.</li>
+      <li>EXPLAIN / EXPLAIN ANALYZE: xem query plan để phát hiện chỗ cần index.</li>
+    </ul>
+    <div class="tip-box">Biết khái niệm này tuy là DB kiến thức cho fresher nhưng sẽ tạo ấn tượng tốt — cho thấy bạn không chỉ biết "CRUD" mà còn nghĩ đến performance.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Error handling pattern trong React app?</span>
+    <div class="q-meta"><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <ul>
+      <li><strong>API errors</strong>: try/catch với async/await, lưu error state, hiển thị toast / error message.</li>
+      <li><strong>Network error vs HTTP error</strong>: phân biệt fetch fail (network) vs 4xx/5xx (server).</li>
+      <li><strong>Global handler</strong>: axios interceptor bắt 401 (redirect login), 500 (hiện thông báo chung).</li>
+      <li><strong>Error Boundary</strong>: bắt render error không ngờ tới.</li>
+      <li><strong>Form validation</strong>: validate ở client trước khi gửi API.</li>
+    </ul>
+    <div class="code-block">async function submitForm(data) {
+  setLoading(true);
+  try {
+    await api.post('/submit', data);
+    toast.success('Thành công!');
+  } catch (err) {
+    const msg = err.response?.data?.message ?? 'Có lỗi xảy ra';
+    toast.error(msg);
+  } finally {
+    setLoading(false);
+  }
+}</div>
+  </div>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     TAB: GIT & DEVOPS
+═══════════════════════════════════════════════ -->
+<div id="git" class="section">
+<div class="section-label">Git & DevOps cơ bản</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Các lệnh Git thường dùng hàng ngày?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-easy">Dễ</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <div class="code-block">git clone &lt;url&gt;            # clone repo
+git status                  # xem trạng thái
+git add . / git add &lt;file&gt;  # staging
+git commit -m "feat: add login"  # commit
+git push origin &lt;branch&gt;   # đẩy lên remote
+git pull                    # lấy code mới nhất
+git checkout -b feature/x   # tạo branch mới
+git merge &lt;branch&gt;          # merge
+git stash / git stash pop   # tạm lưu changes
+git log --oneline           # xem history
+git diff                    # xem thay đổi chưa stage</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">git reset vs git revert — khác nhau thế nào?</span>
+    <div class="q-meta"><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p><code>git reset</code>: di chuyển HEAD về commit trước — <strong>viết lại history</strong>. Chỉ dùng trên branch cá nhân chưa push.</p>
+    <ul>
+      <li><code>--soft</code>: giữ changes ở staging</li>
+      <li><code>--mixed</code> (default): giữ changes ở working dir</li>
+      <li><code>--hard</code>: xóa hoàn toàn changes ⚠️</li>
+    </ul>
+    <p><code>git revert &lt;hash&gt;</code>: tạo commit mới đảo ngược commit đó — <strong>an toàn cho shared branch</strong>, không viết lại history.</p>
+    <div class="tip-box"><strong>Quy tắc vàng:</strong> Không bao giờ reset/force push branch đã có người khác pull. Dùng revert cho main/develop.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Merge vs Rebase khác nhau thế nào?</span>
+    <div class="q-meta"><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p><strong>Merge</strong>: tạo merge commit mới, giữ nguyên history — an toàn, thể hiện đúng lịch sử làm việc song song. Dùng cho shared branch.</p>
+    <p><strong>Rebase</strong>: "di chuyển" commits của branch lên đầu nhánh đích, history tuyến tính và sạch hơn. Dùng cho branch cá nhân trước khi tạo PR.</p>
+    <div class="code-block"># Rebase feature branch lên develop mới nhất
+git checkout feature/x
+git rebase develop
+# Sau đó merge vào develop (sẽ là fast-forward)</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Xử lý merge conflict thế nào?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Conflict xảy ra khi 2 branch sửa cùng dòng code.</p>
+    <ul>
+      <li>Git đánh dấu conflict bằng <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code>, <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code></li>
+      <li>Mở file, chọn giữ code nào (hoặc kết hợp cả hai)</li>
+      <li><code>git add &lt;file&gt;</code> để đánh dấu resolved</li>
+      <li><code>git commit</code> hoàn tất merge</li>
+    </ul>
+    <p>Dùng VSCode / GitLens để visualize conflict dễ hơn. Trao đổi với người viết code kia nếu không chắc nên giữ phần nào.</p>
+    <div class="tip-box"><strong>Phòng tránh conflict:</strong> Pull thường xuyên, branch nhỏ và ngắn, không để branch tồn tại quá lâu mà không sync.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Git workflow trong team (feature branch, PR, commit message)?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Quy trình thường gặp: <code>main</code> (production) ← <code>develop</code> (staging) ← <code>feature/xxx</code> (cá nhân).</p>
+    <ul>
+      <li>Tạo branch từ develop: <code>git checkout -b feature/login-page</code></li>
+      <li>Commit nhỏ, thường xuyên với message rõ ràng</li>
+      <li>Push → tạo Pull Request → code review → merge</li>
+      <li>Không push thẳng vào main/develop</li>
+    </ul>
+    <p><strong>Conventional Commits</strong>: <code>feat: add login form</code>, <code>fix: correct email validation</code>, <code>chore: update deps</code>, <code>refactor:</code>, <code>docs:</code>, <code>style:</code>.</p>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Biết gì về CI/CD, Docker, Cloud (AWS/Azure/GCP)?</span>
+    <div class="q-meta"><span class="q-badge badge-hard">Lợi thế</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Đây là điểm cộng — không bắt buộc với intern, nhưng biết cơ bản thì ấn tượng:</p>
+    <ul>
+      <li><strong>CI/CD</strong>: tự động build, test, deploy khi push code (GitHub Actions, GitLab CI). Ví dụ: push lên develop → tự chạy test → deploy staging.</li>
+      <li><strong>Docker</strong>: đóng gói app + dependencies vào container, chạy nhất quán mọi môi trường. Lệnh cơ bản: <code>docker build, docker run, docker-compose up</code>.</li>
+      <li><strong>Cloud</strong>: AWS S3 + CloudFront (host static site), EC2 (server), Vercel/Netlify (deploy frontend đơn giản nhất).</li>
+    </ul>
+    <p>Nếu chưa biết: <em>"Em chưa có kinh nghiệm thực tế nhưng đã deploy frontend project lên Vercel và đang tìm hiểu Docker cơ bản."</em></p>
+  </div>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     TAB: SOFT SKILLS
+═══════════════════════════════════════════════ -->
+<div id="soft" class="section">
+<div class="section-label">Soft skills & tình huống thực tế</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Bạn xử lý thế nào khi bị giao task không hiểu?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p><em>"Em sẽ đọc kỹ requirements trước, tự research 30–60 phút. Nếu vẫn chưa rõ, em note lại câu hỏi cụ thể — không hỏi chung chung 'task này làm thế nào?' mà hỏi cụ thể từng điểm còn vướng — rồi xin 10 phút hỏi Leader hoặc đồng nghiệp có kinh nghiệm hơn."</em></p>
+    <div class="tip-box"><strong>Điểm cốt lõi:</strong> chủ động nhưng không để block quá lâu. Hỏi đúng lúc, đúng người, đúng cách — đó là kỹ năng quý giá nhất của intern.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Bạn xử lý áp lực deadline thế nào?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Dùng STAR. Ví dụ: <em>"Khi làm project [X] với deadline gấp, em ưu tiên chạy được core feature trước, sau đó mới polish UI và xử lý edge case. Em cũng chủ động báo Leader tiến độ sớm nếu thấy có nguy cơ trễ, không đợi đến sát deadline mới nói."</em></p>
+    <div class="tip-box"><strong>Key points:</strong> ưu tiêu hóa công việc (không làm mọi thứ song song), giao tiếp chủ động về tiến độ, không im lặng khi gặp vấn đề.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Bạn đã từng conflict với đồng đội chưa? Xử lý thế nào?</span>
+    <div class="q-meta"><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Dùng cấu trúc STAR. Tập trung vào giải pháp, không phàn nàn về người khác. Nhấn mạnh: lắng nghe quan điểm hai chiều, trao đổi thẳng thắn, tìm điểm chung, focus vào mục tiêu của team.</p>
+    <p>Nếu chưa có kinh nghiệm thực tế: chia sẻ cách bạn xử lý bất đồng ý kiến trong nhóm khi học (group project), cũng có giá trị tương đương.</p>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Bạn học từ sai lầm thế nào? Cho ví dụ cụ thể.</span>
+    <div class="q-meta"><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Ví dụ chân thực: <em>"Em từng push code lên main mà chưa test kỹ, gây lỗi. Sau đó em luôn tạo feature branch, test local trước, và không bao giờ commit thẳng vào main. Em cũng bắt đầu viết checklist trước khi submit PR."</em></p>
+    <div class="tip-box">Câu này test <strong>growth mindset</strong>. Người ta không cần bạn không sai — họ cần bạn học từ sai. Kể sai lầm thật + bài học cụ thể + thói quen thay đổi sau đó.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Bạn có thể làm việc fulltime không? Lịch trình thế nào?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-easy">Dễ</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Trả lời rõ ràng: Có/Không, thời gian bắt đầu được, số giờ/ngày. Nếu còn đi học: nêu lịch học cụ thể và commit giờ làm cụ thể.</p>
+    <p>Ví dụ: <em>"Em có thể đi làm fulltime từ [ngày], giờ làm 8h–17h. Em đã sắp xếp xong lịch học và không có vướng mắc gì."</em></p>
+    <div class="tip-box">Công ty cần sự rõ ràng để planning. Đừng mơ hồ — "em cố gắng sắp xếp" không đủ để họ quyết định.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Tiếng Anh của bạn ở mức nào?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-easy">Dễ</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Trả lời thật, phân biệt từng kỹ năng: <em>"Reading: em đọc tài liệu kỹ thuật tiếng Anh tốt, đọc được docs và blog tech hàng ngày. Listening/Speaking: em hiểu được khi nghe chậm, giao tiếp cơ bản trong công việc được. Đang luyện thêm để tự tin hơn trong cuộc họp có người nước ngoài."</em></p>
+    <div class="tip-box">Netviet làm việc với đối tác nước ngoài — tiếng Anh tốt hơn đồng nghĩa lương cao hơn (7–11M range). Nếu bạn có thể đọc doc gốc fluently, đó đã là lợi thế thực sự.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Bạn có câu hỏi gì cho chúng tôi không?</span>
+    <div class="q-meta"><span class="q-badge badge-must">Bắt buộc</span><span class="q-badge badge-med">Trung bình</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Luôn chuẩn bị 3 câu. Không hỏi những gì đã có trong JD. Câu hỏi hay:</p>
+    <ul>
+      <li><em>"Tech stack hiện tại của team frontend đang dùng là gì? Có dùng TypeScript không?"</em></li>
+      <li><em>"Một intern mới thường được onboard thế nào trong tháng đầu tiên — có code review không?"</em></li>
+      <li><em>"Tiêu chí cụ thể để được xét lên fresher sau 3 tháng là gì — về kỹ thuật và soft skill?"</em></li>
+      <li><em>"Team đang scale hay maintain sản phẩm — phần nào em có thể đóng góp sớm nhất?"</em></li>
+    </ul>
+    <div class="tip-box">Câu hỏi về tiêu chí lên fresher cho thấy bạn nghiêm túc và muốn đạt mức 7M — đây là tín hiệu rất tốt với nhà tuyển dụng.</div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header" onclick="toggle(this)">
+    <span class="q-title">Bạn làm việc tốt nhất trong môi trường thế nào?</span>
+    <div class="q-meta"><span class="q-badge badge-easy">Dễ</span><i class="ti ti-chevron-down chevron"></i></div>
+  </div>
+  <div class="q-body">
+    <p>Ví dụ: <em>"Em làm tốt trong môi trường có feedback thường xuyên — khi biết mình đang đúng hướng hay cần điều chỉnh thì tiến bộ rất nhanh. Em cũng thích khi team dùng Git flow rõ ràng và có code review — vì học được rất nhiều từ comment của người có kinh nghiệm hơn."</em></p>
+    <div class="tip-box">Align câu trả lời với môi trường thực của Netviet: training on-job, mentor trực tiếp, làm việc nhóm. Cho thấy bạn sẽ phù hợp và phát triển nhanh ở đó.</div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<script>
+function switchTab(id, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+function toggle(header) {
+  const body = header.nextElementSibling;
+  const chevron = header.querySelector('.chevron');
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  chevron.classList.toggle('open', !isOpen);
+}
+</script>
